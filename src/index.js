@@ -4,17 +4,20 @@ const add = document.getElementById('add');
 const minus = document.getElementById('minus');
 const number = document.querySelector('span');
 
-// action은 redux의 두번째 인자이다.
+number.innerText = 0;
+
+// 오타를 빨리 찾기위해서, 스트링 대신에 이렇게 쓴다.
+const ADD = 'ADD';
+const MINUS = 'MINUS';
 
 const countModifier = (count = 0, action) => {
-  // console.log(count, action);
-
-  if (action.type === 'ADD') {
-    return count + 1;
-  } else if (action.type === 'MINUS') {
-    return count - 1;
-  } else {
-    return count;
+  switch (action.type) {
+    case ADD:
+      return count + 1;
+    case MINUS:
+      return count - 1;
+    default:
+      return count;
   }
 };
 
@@ -27,10 +30,10 @@ const onChange = () => {
 countStore.subscribe(onChange);
 
 const handleAdd = () => {
-  countStore.dispatch({ type: 'ADD' });
+  countStore.dispatch({ type: ADD });
 };
 const handleMinus = () => {
-  countStore.dispatch({ type: 'MINUS' });
+  countStore.dispatch({ type: MINUS });
 };
 
 // 한번에 함수로 적는방법(동일한코드이다.)
